@@ -1,1 +1,1138 @@
-<h1>test</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Done By Obi — Handyman Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── DESIGN SYSTEM ───────────────────────────────────── */
+  :root {
+    --navy:    #0D1B2A;
+    --navy2:   #152235;
+    --orange:  #F46A1A;
+    --orange2: #FF8C42;
+    --cream:   #F5F0E8;
+    --steel:   #8A9BB0;
+    --white:   #FFFFFF;
+    --mono:    'DM Mono', monospace;
+    --cond:    'Barlow Condensed', sans-serif;
+    --body:    'Barlow', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--navy);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── SHARED DNA BAR (appears on all 5 pages) ────────── */
+  .dna-bar {
+    background: var(--navy2);
+    border-bottom: 1px solid rgba(244,106,26,0.2);
+    padding: 8px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--steel);
+  }
+  .dna-bar a { color: var(--orange); text-decoration: none; transition: color 0.2s; }
+  .dna-bar a:hover { color: var(--orange2); }
+  .dna-bar-dots { display: flex; gap: 8px; align-items: center; }
+  .dna-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(244,106,26,0.25);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .dna-dot.active { background: var(--orange); }
+  .dna-dot:hover { background: var(--orange2); }
+
+  /* ── NAV ────────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,27,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(244,106,26,0.15);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: var(--cond);
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-family: var(--cond);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta {
+    background: var(--orange);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 2px;
+    font-family: var(--cond) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--orange2) !important; color: var(--white) !important; }
+
+  /* ── HERO ───────────────────────────────────────────── */
+  .hero {
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Diagonal split */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 52%;
+    height: 100%;
+    background: var(--navy2);
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+    z-index: 0;
+  }
+
+  /* Texture grain */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-left {
+    padding: 80px 60px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 2px;
+    background: var(--orange);
+  }
+
+  .hero-title {
+    font-family: var(--cond);
+    font-weight: 900;
+    font-size: clamp(64px, 8vw, 110px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .hero-title .done { color: var(--cream); }
+  .hero-title .by   { color: var(--steel); font-size: 0.6em; }
+  .hero-title .obi  {
+    color: var(--orange);
+    display: block;
+    -webkit-text-stroke: 2px var(--orange);
+    text-shadow: 4px 4px 0px rgba(244,106,26,0.2);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--steel);
+    line-height: 1.6;
+    margin-top: 28px;
+    margin-bottom: 44px;
+    max-width: 420px;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    font-family: var(--cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--orange2); transform: translateY(-2px); }
+  .btn-primary svg { transition: transform 0.2s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    font-family: var(--cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: 2px solid rgba(245,240,232,0.25);
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--cream); color: var(--white); }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 60px 60px 80px;
+  }
+
+  /* Big illustrated toolbox / service grid */
+  .service-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    max-width: 420px;
+    animation: fadeSlideUp 0.8s ease 0.3s both;
+  }
+  .sp-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(244,106,26,0.15);
+    border-radius: 4px;
+    padding: 24px 20px;
+    transition: border-color 0.25s, background 0.25s, transform 0.2s;
+    cursor: default;
+  }
+  .sp-card:hover {
+    border-color: var(--orange);
+    background: rgba(244,106,26,0.07);
+    transform: translateY(-3px);
+  }
+  .sp-card:nth-child(3) { grid-column: 1 / -1; display: flex; align-items: center; gap: 20px; }
+  .sp-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .sp-card:nth-child(3) .sp-icon { margin-bottom: 0; font-size: 32px; }
+  .sp-label {
+    font-family: var(--cond);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .sp-desc {
+    font-size: 12px;
+    color: var(--steel);
+    margin-top: 4px;
+  }
+  .sp-card:nth-child(3) .sp-body .sp-label { font-size: 20px; }
+
+  /* Stats strip */
+  .hero-stats {
+    display: flex;
+    gap: 0;
+    margin-top: 48px;
+    border-top: 1px solid rgba(245,240,232,0.1);
+    padding-top: 32px;
+  }
+  .stat-item {
+    flex: 1;
+    padding-right: 24px;
+  }
+  .stat-item + .stat-item {
+    padding-left: 24px;
+    border-left: 1px solid rgba(245,240,232,0.1);
+  }
+  .stat-num {
+    font-family: var(--cond);
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--steel);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* ── MARQUEE STRIP ──────────────────────────────────── */
+  .marquee-wrap {
+    background: var(--orange);
+    overflow: hidden;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-item {
+    font-family: var(--cond);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 0 32px;
+  }
+  .marquee-dot {
+    color: rgba(255,255,255,0.5);
+    padding: 0 8px;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── SERVICES ───────────────────────────────────────── */
+  .services {
+    padding: 100px 80px;
+    background: var(--navy2);
+    position: relative;
+  }
+  .services::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--orange);
+  }
+
+  .section-title {
+    font-family: var(--cond);
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .section-title span { color: var(--orange); }
+
+  .section-sub {
+    font-size: 16px;
+    color: var(--steel);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 64px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--navy);
+    padding: 40px 36px;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .service-card:hover { border-color: rgba(244,106,26,0.3); }
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(244,106,26,0.4);
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+  .service-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+  .service-name {
+    font-family: var(--cond);
+    font-size: 24px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .service-desc {
+    font-size: 14px;
+    color: var(--steel);
+    line-height: 1.65;
+  }
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    border: 1px solid rgba(244,106,26,0.3);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  /* ── HOW IT WORKS ───────────────────────────────────── */
+  .process {
+    padding: 100px 80px;
+    background: var(--navy);
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(244,106,26,0.4), var(--orange), rgba(244,106,26,0.4), transparent);
+  }
+  .step {
+    text-align: center;
+    padding: 0 24px;
+    position: relative;
+  }
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--navy2);
+    border: 2px solid var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--cond);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--orange);
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-title {
+    font-family: var(--cond);
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--steel);
+    line-height: 1.6;
+  }
+
+  /* ── TRUST / WHY OBI ────────────────────────────────── */
+  .trust {
+    padding: 100px 80px;
+    background: var(--navy2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .trust-visual {
+    position: relative;
+  }
+  .trust-card-main {
+    background: var(--navy);
+    border: 1px solid rgba(244,106,26,0.2);
+    border-radius: 4px;
+    padding: 40px;
+    position: relative;
+  }
+  .trust-card-main::before {
+    content: '"';
+    font-family: var(--cond);
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(244,106,26,0.08);
+    position: absolute;
+    top: -20px; left: 20px;
+    line-height: 1;
+  }
+  .trust-quote {
+    font-size: 18px;
+    color: var(--cream);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+  .trust-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .trust-avatar {
+    width: 44px; height: 44px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--cond);
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--white);
+  }
+  .trust-name {
+    font-family: var(--cond);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .trust-loc {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--steel);
+    margin-top: 2px;
+  }
+  .stars { color: var(--orange); letter-spacing: 2px; font-size: 14px; margin-bottom: 12px; }
+
+  .trust-badges {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .badge {
+    flex: 1;
+    background: rgba(244,106,26,0.08);
+    border: 1px solid rgba(244,106,26,0.2);
+    border-radius: 4px;
+    padding: 16px;
+    text-align: center;
+  }
+  .badge-icon { font-size: 22px; margin-bottom: 6px; }
+  .badge-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .trust-content h2 { margin-bottom: 20px; }
+  .trust-list {
+    list-style: none;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .trust-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 15px;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+  .check {
+    width: 24px; height: 24px; min-width: 24px;
+    background: var(--orange);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 13px;
+    margin-top: 1px;
+  }
+  .trust-list strong { color: var(--white); }
+
+  /* ── CTA BAND ───────────────────────────────────────── */
+  .cta-band {
+    background: var(--orange);
+    padding: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: 'GET IT DONE';
+    position: absolute;
+    right: -20px; top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--cond);
+    font-size: 160px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.07);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+  }
+  .cta-text h2 {
+    font-family: var(--cond);
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .cta-text p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    max-width: 440px;
+  }
+  .btn-white {
+    background: var(--white);
+    color: var(--orange);
+    font-family: var(--cond);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 18px 44px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+  /* ── FOOTER ─────────────────────────────────────────── */
+  footer {
+    background: #080F18;
+    padding: 60px 80px 32px;
+    border-top: 1px solid rgba(244,106,26,0.15);
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    gap: 60px;
+  }
+  .footer-brand h3 {
+    font-family: var(--cond);
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .footer-brand h3 span { color: var(--orange); }
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--steel);
+    max-width: 260px;
+    line-height: 1.6;
+  }
+  .footer-contact { font-size: 14px; }
+  .footer-contact h4 {
+    font-family: var(--cond);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin-bottom: 16px;
+  }
+  .footer-contact a {
+    display: block;
+    color: var(--cream);
+    text-decoration: none;
+    margin-bottom: 8px;
+    font-size: 15px;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover { color: var(--orange); }
+  .footer-universe { font-size: 14px; }
+  .footer-universe h4 {
+    font-family: var(--cond);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin-bottom: 16px;
+  }
+  .universe-links { display: flex; flex-direction: column; gap: 8px; }
+  .universe-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--steel);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+  }
+  .universe-link:hover { color: var(--orange); }
+  .universe-link .u-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(244,106,26,0.3);
+    flex-shrink: 0;
+  }
+  .universe-link:hover .u-dot { background: var(--orange); }
+  .footer-bottom {
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(138,155,176,0.5);
+    letter-spacing: 0.08em;
+  }
+  .footer-copy a { color: var(--orange); text-decoration: none; }
+
+  /* ── ANIMATIONS ─────────────────────────────────────── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    opacity: 0;
+    animation: fadeSlideUp 0.7s ease forwards;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .dna-bar { padding: 8px 20px; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero::after { display: none; }
+    .hero-left { padding: 60px 24px 40px; }
+    .hero-right { padding: 0 24px 60px; }
+    .service-preview-grid { max-width: 100%; }
+    .services, .process, .trust, .cta-band, footer { padding: 60px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .process-steps::before { display: none; }
+    .trust { grid-template-columns: 1fr; gap: 48px; }
+    .cta-band { flex-direction: column; text-align: center; }
+    .footer-top { flex-direction: column; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SHARED DNA BAR ──────────────────────────────────── -->
+<div class="dna-bar">
+  <span>Part of the <a href="#">Obi Okonkwo Universe</a></span>
+  <div class="dna-bar-dots" title="Explore all five ventures">
+    <span style="font-size:10px; margin-right:4px;">EXPLORE:</span>
+    <div class="dna-dot active" title="Done By Obi — Handyman"></div>
+    <div class="dna-dot" title="Obi in Medicine"></div>
+    <div class="dna-dot" title="Biomedical Engineering"></div>
+    <div class="dna-dot" title="Martial Arts Coaching"></div>
+    <div class="dna-dot" title="Super Shots Photobooth"></div>
+  </div>
+</div>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">Done<span>By</span>Obi</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#trust">Why Obi</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Sole Proprietor · Licensed · Insured</div>
+
+    <h1 class="hero-title">
+      <span class="done">Done</span>
+      <span class="by">By</span>
+      <span class="obi">Obi.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Reliable, skilled, and built on integrity. From minor repairs to full project builds — if your home needs it, Obi handles it. No upsells. No surprises. Just results.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">
+        Get a Free Quote
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="#services" class="btn-ghost">View Services</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Jobs Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24hr</div>
+        <div class="stat-label">Response Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="service-preview-grid">
+      <div class="sp-card">
+        <span class="sp-icon">🔧</span>
+        <div class="sp-label">Repairs</div>
+        <div class="sp-desc">Plumbing, appliances & more</div>
+      </div>
+      <div class="sp-card">
+        <span class="sp-icon">🪚</span>
+        <div class="sp-label">Carpentry</div>
+        <div class="sp-desc">Trim, shelving & custom builds</div>
+      </div>
+      <div class="sp-card">
+        <span class="sp-icon">🏠</span>
+        <div class="sp-body">
+          <div class="sp-label">Full Home Projects</div>
+          <div class="sp-desc">From quick fixes to full room renovations — one call handles it all</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ───────────────────────────────────────────── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <!-- duplicated for seamless loop -->
+    <span class="marquee-item">Handyman Services</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Plumbing Repairs</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Carpentry & Trim</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Drywall & Painting</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Fixture Installation</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Home Renovations</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Assembly & Mounting</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Flooring</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Handyman Services</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Plumbing Repairs</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Carpentry & Trim</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Drywall & Painting</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Fixture Installation</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Home Renovations</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Assembly & Mounting</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Flooring</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- ── SERVICES ──────────────────────────────────────────── -->
+<section class="services" id="services">
+  <div class="section-label">What I Do</div>
+  <h2 class="section-title">Every Job. <span>Done Right.</span></h2>
+  <p class="section-sub">No job is too small — and no project too complex. Obi brings professional-grade skill and a craftsman's attention to every single call.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <span class="service-icon">🔧</span>
+      <div class="service-name">General Repairs</div>
+      <p class="service-desc">Leaky faucets, broken fixtures, squeaky doors, damaged walls — if it's broken, it gets fixed. Fast and right the first time.</p>
+      <div class="service-tags">
+        <span class="tag">Plumbing</span>
+        <span class="tag">Fixtures</span>
+        <span class="tag">Drywall</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <span class="service-icon">🪚</span>
+      <div class="service-name">Carpentry</div>
+      <p class="service-desc">Custom shelving, trim work, door frames, furniture assembly, deck boards. Precision cuts and clean finishes every time.</p>
+      <div class="service-tags">
+        <span class="tag">Trim</span>
+        <span class="tag">Shelving</span>
+        <span class="tag">Builds</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <span class="service-icon">🎨</span>
+      <div class="service-name">Painting & Drywall</div>
+      <p class="service-desc">Patch, prime, and paint. Interior walls, ceilings, trim — smooth finishes that look like a professional crew was just there.</p>
+      <div class="service-tags">
+        <span class="tag">Interior</span>
+        <span class="tag">Patching</span>
+        <span class="tag">Finishing</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <span class="service-icon">💡</span>
+      <div class="service-name">Installation</div>
+      <p class="service-desc">Light fixtures, ceiling fans, smart home devices, TV mounting, appliance hookups. Installed cleanly and safely.</p>
+      <div class="service-tags">
+        <span class="tag">Electrical</span>
+        <span class="tag">Smart Home</span>
+        <span class="tag">Mounting</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <span class="service-icon">🏗️</span>
+      <div class="service-name">Renovation Support</div>
+      <p class="service-desc">Bathroom refreshes, kitchen updates, basement builds. Obi coordinates the work so you don't have to manage five different contractors.</p>
+      <div class="service-tags">
+        <span class="tag">Kitchen</span>
+        <span class="tag">Bathroom</span>
+        <span class="tag">Basement</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <span class="service-icon">🌿</span>
+      <div class="service-name">Outdoor & Exterior</div>
+      <p class="service-desc">Deck repairs, fence fixes, gutter clearing, power washing, exterior patching. Keep your property looking sharp inside and out.</p>
+      <div class="service-tags">
+        <span class="tag">Deck</span>
+        <span class="tag">Fencing</span>
+        <span class="tag">Exterior</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ───────────────────────────────────────────── -->
+<section class="process" id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Simple. <span>Straightforward.</span> Done.</h2>
+  <p class="section-sub">Getting your home repaired shouldn't feel like a project in itself. Here's exactly what to expect when you book with Obi.</p>
+
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Reach Out</div>
+      <p class="step-desc">Call, text, or fill out the form. Describe your project. Obi responds within 24 hours, guaranteed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Free Quote</div>
+      <p class="step-desc">Get an honest, itemized estimate. No hidden fees, no bait-and-switch. You approve before any work starts.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Work Begins</div>
+      <p class="step-desc">Obi shows up on time, fully equipped, and gets to work. You'll be kept in the loop throughout.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Done Right</div>
+      <p class="step-desc">Walkthrough with you before packing up. Work is guaranteed. Not satisfied? Obi comes back until it is.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST ─────────────────────────────────────────────── -->
+<section class="trust" id="trust">
+  <div class="trust-visual">
+    <div class="trust-card-main">
+      <div class="stars">★★★★★</div>
+      <p class="trust-quote">"Obi fixed three issues I'd been putting off for months — all in one afternoon. Professional, respectful of my space, and the price was exactly what he quoted. He's the only handyman I'll ever call."</p>
+      <div class="trust-author">
+        <div class="trust-avatar">MR</div>
+        <div>
+          <div class="trust-name">Marcus R.</div>
+          <div class="trust-loc">Homeowner · Chicago, IL</div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-badges">
+      <div class="badge">
+        <div class="badge-icon">🛡️</div>
+        <div class="badge-label">Fully Insured</div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">📋</div>
+        <div class="badge-label">Licensed</div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">⭐</div>
+        <div class="badge-label">5-Star Rated</div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">🤝</div>
+        <div class="badge-label">Guaranteed</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="trust-content">
+    <div class="section-label">Why Obi</div>
+    <h2 class="section-title">Not Just <span>Another Guy</span> With a Toolbox.</h2>
+    <p class="section-sub" style="margin-bottom:0;">Obi Okonkwo built this business on a simple idea: do the work you'd want done in your own home.</p>
+
+    <ul class="trust-list">
+      <li>
+        <span class="check">✓</span>
+        <span><strong>Trained precision meets street-level experience.</strong> Years of hands-on work across hundreds of homes. No guesswork — just skill.</span>
+      </li>
+      <li>
+        <span class="check">✓</span>
+        <span><strong>One person, full accountability.</strong> When you hire Obi, Obi shows up. Not a subcontractor you've never met.</span>
+      </li>
+      <li>
+        <span class="check">✓</span>
+        <span><strong>Transparent pricing, always.</strong> You'll know the cost before the first nail goes in. No scope creep, no surprise invoices.</span>
+      </li>
+      <li>
+        <span class="check">✓</span>
+        <span><strong>Work backed by a satisfaction guarantee.</strong> Obi stands behind every job. Period.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── CTA BAND ───────────────────────────────────────────── -->
+<section class="cta-band" id="contact">
+  <div class="cta-text">
+    <h2>Ready to Get It<br>Done?</h2>
+    <p>Text or call directly, or drop your info below. Free estimates, fast response, and work that actually lasts.</p>
+  </div>
+  <a href="tel:+1XXXXXXXXXX" class="btn-white">📞 Book Obi Now</a>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Done<span>By</span>Obi</h3>
+      <p>Sole proprietor handyman services. Built on integrity, delivered with skill.</p>
+      <p style="margin-top:12px; font-family: var(--mono); font-size: 11px; color: rgba(138,155,176,0.6); letter-spacing:0.06em;">tr.co/obi-o</p>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <a href="tel:+1XXXXXXXXXX">📞 (XXX) XXX-XXXX</a>
+      <a href="mailto:obi@donebyobi.com">✉️ obi@donebyobi.com</a>
+      <a href="#">📍 Serving the Greater Chicago Area</a>
+    </div>
+
+    <div class="footer-universe">
+      <h4>Also Obi</h4>
+      <div class="universe-links">
+        <a href="#" class="universe-link"><span class="u-dot"></span>Obi in Medicine</a>
+        <a href="#" class="universe-link"><span class="u-dot"></span>Biomedical Engineering</a>
+        <a href="#" class="universe-link"><span class="u-dot"></span>Martial Arts Coaching</a>
+        <a href="https://supershotsphotobooth.co" class="universe-link" target="_blank"><span class="u-dot"></span>Super Shots Photobooth</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Done By Obi · Obi Okonkwo · All Rights Reserved</span>
+    <span class="footer-copy">Built with craft. Designed with purpose. Part of the <a href="#">Obi Okonkwo Universe</a>.</span>
+  </div>
+</footer>
+
+</body>
+</html>
